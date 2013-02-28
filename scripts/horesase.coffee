@@ -7,7 +7,7 @@ file_path = require("path").resolve(__dirname, "meigens.json")
 
 
 module.exports = (robot) ->
-  robot.hear /^misawa (.*)/i, (msg) ->
+  robot.hear /misawa/i, (msg) ->
     fs.readFile file_path, "utf8", (err, data)->
       jsons = JSON.parse data
       r = parseInt(Math.random() * jsons.length, 10)
