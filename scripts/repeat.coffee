@@ -1,3 +1,3 @@
 module.exports = (robot) ->
-  robot.hear /.*/i, (msg) ->
-    robot.reply msg.message.user, msg.message.text
+  robot.hear /^repeat (.*)/i, (msg) ->
+    robot.reply msg.message.user, msg.match[1]
