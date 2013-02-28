@@ -1,2 +1,5 @@
 /node_modules/
 /sqbotenv
+
+*.sublime-*
+/.DS_Store
