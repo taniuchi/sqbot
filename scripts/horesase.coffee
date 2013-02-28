@@ -11,11 +11,14 @@ jsons = false
 
 fs.readFile file_path, "utf8", (err, data)->
   jsons = JSON.parse data
+  console.log return_by_query_default_random("最高")
 
 # ランダムに返す.
-return_random = ()->
-  r = parseInt(Math.random() * jsons.length, 10)
-  item = jsons[r]
+return_random = (items)->
+  if items.length == 0
+    return false
+  r = parseInt(Math.random() * items.length, 10)
+  item = items[r]
   return item
 
 # queryをセグメントして返す
@@ -23,28 +26,26 @@ return_by_query = (q)->
   segs0 = segmenter.segment(q, 0)
   segs1 = segmenter.segment(q, 1)
   segs = segs1
-  # if segs0.length == 1
-  #   segs = segs0
+  if segs0.length == 1
+    segs = segs0
   console.log segs
   item = false
-  is_finded = false
+  items = []
   for j in jsons
-    if is_finded
-      break
     for seg in segs
       if j.body.toLowerCase().indexOf(seg) >= 0
-        is_finded = true
-        item = j
+        items.push(j)
         break
+  item = return_random(items)
   return item
 
 # 無ければランダムで返す
 return_by_query_default_random = (q)->
   if q.length == 0
-    return return_random()
+    return return_random(jsons)
   item = return_by_query(q)
   if not item
-    return return_random()
+    return return_random(jsons)
   return item
 
 module.exports = (robot) ->
