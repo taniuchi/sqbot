@@ -179,7 +179,13 @@ TinySegmenter.prototype.segment = function(input, depth) {
     p3 = p;
     word += seg[i];
   }
-  result.push(word);
+  if(depth > 0){
+    if(word.length > 1){
+      result.push(word);
+    }
+  }else{
+    result.push(word);
+  }
 
   return result;
 }
