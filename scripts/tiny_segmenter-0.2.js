@@ -165,8 +165,9 @@ TinySegmenter.prototype.segment = function(input, depth) {
     if (score > 0) {
       if(depth > 0){
         if (score < 10000){
-          if(word.length > 1)
+          if(word.length > 1 || ctype[i] == "I"){
             result.push(word);
+          }
         }
       }else{
         result.push(word);
