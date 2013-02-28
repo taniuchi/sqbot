@@ -1,0 +1,20 @@
+{
+  "name": "sqbot",
+  "version": "0.0.0",
+  "description": "s-cubism bot for yammer",
+  "author": "sqbot",
+  "license": "MIT",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scubism/sqbot.git"
+  },
+
+  "dependencies": {
+    "hubot": "~2.4.7",
+    "hubot-yammer": "~0.0.6"
+  },
+
+  "engine": "node >= 0.8.x",
+  "readmeFilename": "README.md"
+}

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+npm install
+source ./sqbotenv
+exec hubot -a yammer -n sqbot
