@@ -12,7 +12,7 @@
 
   "dependencies": {
     "hubot": "~2.4.7",
-    "hubot-yammer": "~0.0.6"
+    "hubot-yammer": "git://github.com/moqada/hubot-yammer.git#master"
   },
 
   "engine": "node >= 0.8.x",
