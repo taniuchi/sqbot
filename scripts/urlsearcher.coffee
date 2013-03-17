@@ -1,6 +1,7 @@
 module.exports = (robot) ->
 
   noneCount = 0
+  urlPattern = "(^#{robot.name}\\s+)?(https?:\/\/[-_.,0-9A-z*&#?=:/]+)"
   phrases =
     none: [
       'ごめんけど、ないわ、これ'
@@ -24,24 +25,33 @@ module.exports = (robot) ->
     list = phrases[key]
     list[parseInt Math.random() * list.length, 10]
 
-  robot.respond /(https?:\/\/[-_.,0-9A-z*&#?=:/]+)/i, (msg) ->
-    url = msg.match[1]
-    request = msg.http("http://b.hatena.ne.jp/entry/json/#{url}").get()
+  messageGen = (json) ->
+    msg = getPhrase 'exist'
+    msg += "\n\n#{json.title}\n#{json.count}はてﾌﾞ"
+    if json.related
+      urls = ("[#{e.count}] #{e.title}\n#{e.url}\n" for e in json.related)
+      msg += "\n\n#{urls.join('\n')}"
+    msg
+
+  robot.hear new RegExp(urlPattern, 'i'), (msg) ->
+    toMe = msg.match[1]
+    url = msg.match[2]
+    request = robot.http("http://b.hatena.ne.jp/entry/json/#{url}").get()
 
     request (err, res, body) ->
       json = JSON.parse body
+      words = ''
 
-      if not json
-        noneCount++
-        if noneCount > 1
+      if json
+        words = messageGen json
+        if toMe
+          noneCount = 0
+      else if toMe
+        if noneCount > 0
           words = getPhrase 'nonenone'
         else
           words = getPhrase 'none'
-      else
-        noneCount = 0
-        phs = getPhrase 'exist'
-        main = "#{json.title}\n#{json.count}はてﾌﾞ"
-        urls = ("[#{e.count}] #{e.title}\n#{e.url}\n" for e in json.related)
-        words = "#{phs}\n\n#{main}\n\n#{urls.join('\n')}"
+        noneCount++
 
-      msg.reply "> #{url}\n#{words}"
+      if words
+        msg.reply "> #{url}\n#{words}"
