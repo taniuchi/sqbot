@@ -17,7 +17,7 @@
 module.exports = (robot) ->
 
   noneCount = 0
-  urlPattern = "(^#{robot.name}\\s+)?(https?:\/\/[-_.,0-9A-z*&#?=:/]+)"
+  urlPattern = "(^#{robot.name}\\s+)?(https?:\/\/[-_.,0-9A-z*&#?=:/%]+)"
   phrases =
     none: [
       'ごめんけど、ないわ、これ'
