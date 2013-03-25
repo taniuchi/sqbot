@@ -1,3 +1,19 @@
+# Description:
+#   はてブAPIから関連URLを探してreplyする
+#
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
+# Commands:
+#   <url> - 本文に含まれている<url>の関連URLが存在したらそのURLを返す
+#   hubot <url> - <url>の関連URLが存在したらそのURLを返す、存在しなくても何か返す
+#
+# Author:
+#   moqada
+
 module.exports = (robot) ->
 
   noneCount = 0
