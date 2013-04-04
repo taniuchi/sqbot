@@ -1,3 +1,17 @@
+# Description:
+#   特定の文字に反応して人なつっこくあいさつを返します
+#
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
+# Commands:
+#   <words> - 本文に特定の<words>が含まれていたら用意されたあいさつをランダムに返す
+#
+# Author:
+#   moqada
 module.exports = (robot) ->
 
   greets = [
@@ -7,10 +21,12 @@ module.exports = (robot) ->
     'ﾁｯｽ!!!',
     'ﾁｽ!!!',
     'ﾊｰｰｲ!',
+    'ｻｾﾝ…ｱｱ…ｴｯﾄ…ﾁﾜｯｽ…',
+    'ｱｱ…ｴｯﾄ…ｵﾅｼｬｽ…',
     '(☝ ՞ਊ ՞)☝',
     '(◞≼●≽◟◞౪◟◞≼●≽◟)',
   ]
 
-  robot.hear /(こんに?)?ちわ(っす)?/i, (msg) ->
+  robot.hear /(こと.+です[！!。])|(よろしくお(ねが|願)いします)|((こんに?)?ちわ(っす)?)/i, (msg) ->
     idx = parseInt Math.random() * greets.length, 10
-    robot.reply msg.message.user, "@#{msg.message.user.name[0]} #{greets[idx]}"
+    msg.reply "#{greets[idx]}"
